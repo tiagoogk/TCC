@@ -1,0 +1,9 @@
+make[4]: Entering directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/algo/blast/igblast'
+Updating dependency information for /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/algo/blast/igblast/igblast.cpp.
+/usr/bin/g++  -std=gnu++14 -msse4.2 -c  -Wall -Wno-format-y2k  -pthread -fopenmp -fPIC   -O3 -finline-functions -fstrict-aliasing -fomit-frame-pointer  -DNDEBUG -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE   -D_MT -D_REENTRANT -D_THREAD_SAFE -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/inc -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/include  -DNCBI_BUILD_SESSION_ID=1d281178-5679-4c82-9e29-bc46604df53a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/algo/blast/igblast/igblast.cpp -o igblast.o 
+e/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/algo/blast/igblast/igblast.cpp:ember function ‘e/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/algo/blast/igblast/igblast.cpp:994:43:parison between signed and unsigned integer expressions [pareax_allowed_j_deletion/bin/rm -f libigblast.a .libigblast.a.stamp
+ar cr libigblast.a igblast.o  
+/bin/bash /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/scripts/common/impl/if_diff.sh /bin/ln -f libigblast.a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/lib
+/bin/ln -f libigblast.a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/lib/libigblast.a
+/bin/ln -f .igblast.dep /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/status/.igblast.dep
+make[4]: Leaving directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/algo/blast/igblast'

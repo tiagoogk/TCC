@@ -1,0 +1,9 @@
+make[4]: Entering directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/app/blast'
+Updating dependency information for /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/app/blast/blast_app_util.cpp.
+/usr/bin/g++  -std=gnu++14 -msse4.2 -c  -Wall -Wno-format-y2k  -pthread -fopenmp -fPIC   -O3 -finline-functions -fstrict-aliasing -fomit-frame-pointer   -DNCBI_MODULE=BLAST -DNDEBUG -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE   -D_MT -D_REENTRANT -D_THREAD_SAFE -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/inc -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/include  -DNCBI_BUILD_SESSION_ID=1d281178-5679-4c82-9e29-bc46604df53a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/app/blast/blast_app_util.cpp -o blast_app_util.o 
+/bin/rm -f libblast_app_util.a .libblast_app_util.a.stamp
+ar cr libblast_app_util.a blast_app_util.o  
+/bin/bash /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/scripts/common/impl/if_diff.sh /bin/ln -f libblast_app_util.a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/lib
+/bin/ln -f libblast_app_util.a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/lib/libblast_app_util.a
+/bin/ln -f .blast_app_util.dep /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/status/.blast_app_util.dep
+make[4]: Leaving directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/app/blast'

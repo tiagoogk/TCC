@@ -1,0 +1,529 @@
+M,12,genome_collection.asn:NCBI-GenomeCollection
+-- $Id: genome_collection.asn 577514 2019-01-04 19:50:34Z akimchi $
+-- **********************************************************************
+--
+--  NCBI Genome Collections
+--  by Mike DiCuccio, Avi Kimchi, Karl Sirotkin, Josh Cherry
+--
+-- **********************************************************************
+  T,25,NCBI-GenomeCollection:GC-Genome
+  T,50,NCBI-GenomeCollection:GC-Project
+  T,55,NCBI-GenomeCollection:GC-GenomicPart
+  T,68,NCBI-GenomeCollection:GC-Query
+  T,73,NCBI-GenomeCollection:GC-Assemblies
+  T,81,NCBI-GenomeCollection:GC-Assembly
+  T,88,NCBI-GenomeCollection:GC-DbTagAlias
+  T,102,NCBI-GenomeCollection:GC-AssemblySet
+  T,161,NCBI-GenomeCollection:GC-TaggedSequences
+  T,180,NCBI-GenomeCollection:GC-AssemblyUnit
+  T,227,NCBI-GenomeCollection:GC-AssemblyDesc
+  T,305,NCBI-GenomeCollection:GC-Replicon
+  T,330,NCBI-GenomeCollection:GC-SeqIdAlias
+  T,345,NCBI-GenomeCollection:GC-External-Seqid
+  T,350,NCBI-GenomeCollection:GC-TypedSeqId
+  T,361,NCBI-GenomeCollection:GC-SequenceRole
+  T,380,NCBI-GenomeCollection:GC-Sequence
+  T,439,NCBI-GenomeCollection:GC-SequenceStats
+  T,448,NCBI-GenomeCollection:GC-Scaf-stats
+
+T,25,GC-Genome,SEQUENCE
+  F,28,GC-Genome:id,SET /Dbtag
+  -- Gencoll identifier for this genome
+  F,32,GC-Genome:projects,SET /GC-Project,OPTIONAL
+  -- project ID for this genome
+  -- this is the ID for this asssembly and may reflect the submitter/source
+  F,36,GC-Genome:descr,/Seq-descr,OPTIONAL
+  -- Various attributes assigned at this level:
+  -- biosrc, comments, publications...
+  F,42,GC-Genome:chr-names,SET VisibleString,OPTIONAL
+  -- official list of chromosome names
+  -- this should be the complete expected set of chromosomes
+  -- regardless of whether they are represented in *any*
+  -- genomic part
+  F,46,GC-Genome:parts,SET /GC-GenomicPart
+  -- the bits that make up this genome
+  -- this preserves the expected display order
+
+T,50,GC-Project,SEQUENCE
+  F,51,GC-Project:project-role,VisibleString
+  -- Genbank / Refseq
+  F,52,GC-Project:project-id,INTEGER
+
+T,55,GC-GenomicPart,CHOICE
+  F,56,GC-GenomicPart:assembly,/GC-Assembly
+  F,57,GC-GenomicPart:mol,/GC-Replicon
+  F,58,GC-GenomicPart:seqs,/GC-Sequence
+
+T,68,GC-Query,SEQUENCE
+--
+-- A GC-Assemblies is a mere set of assemblies.
+-- used for returning list of assemblies from a search
+--
+  F,69,GC-Query:param,VisibleString
+  F,70,GC-Query:value,VisibleString
+
+T,73,GC-Assemblies,SEQUENCE
+  F,74,GC-Assemblies:query,SET /GC-Query,OPTIONAL
+  F,75,GC-Assemblies:assemblies,SET /GC-Assembly
+
+T,81,GC-Assembly,CHOICE
+--
+-- A GC-Assembly is either a single assembly unit or it is a set of assemblies
+--
+  F,82,GC-Assembly:unit,/GC-AssemblyUnit
+  F,83,GC-Assembly:assembly-set,/GC-AssemblySet
+
+T,88,GC-DbTagAlias,SEQUENCE
+--- GC-DbTagAlias reports relationships between assembly-releases
+--
+  F,89,GC-DbTagAlias:refseq,/Dbtag,OPTIONAL
+  -- the refseq assembly release-id
+  F,90,GC-DbTagAlias:genbank,/Dbtag,OPTIONAL
+  -- the genbank assembly release-id
+  F,95,GC-DbTagAlias:similarity,INTEGER
+  -- Similarity: relationship between 2 assemblies represented by DbTags
+  -- Can be expanded to multiple level of identicality
+  -- can use bitmap to flag ambiguity between different identicality levels
+    V,96,GC-DbTagAlias:similarity:unknown,0
+    V,97,GC-DbTagAlias:similarity:identical,1
+    V,98,GC-DbTagAlias:similarity:different,255
+
+T,102,GC-AssemblySet,SEQUENCE
+  F,113,GC-AssemblySet:id,SET /Dbtag
+  -- The identifier of this assembly
+  -- examples: GC internal id, Assembly-accession.version
+  -- Types of DbTags used:
+  -- db "GenColl", tag id <assembly-release-id>
+  -- db "GenColl", tag str <assembly-accession.version>
+  -- db "AGP", tag id <agp-sumbission-id>
+  -- db "GenColl_Chain", tag id <assembly-chain-id>
+  -- db "UCSC_name", tag str <UCSC identifier for assembly>
+  -- db "Ensembl_name",tag str <Ensembl identifier for assembly>
+  F,116,GC-AssemblySet:set-type,INTEGER
+  -- set type: Assembly-Sets can be of 2 categories
+    V,117,GC-AssemblySet:set-type:full-assembly,0
+    -- full-assembly: set of asm-units
+    V,118,GC-AssemblySet:set-type:assembly-set,100
+    --set of full-assemblies
+    -- stopper
+    V,120,GC-AssemblySet:set-type:other,255
+  F,124,GC-AssemblySet:class,INTEGER
+  -- 'class' defines the semantics of how to interpret this item
+    V,126,GC-AssemblySet:class:full-assembly,0
+    -- general type of full-assembly (not expected to be used)
+    V,128,GC-AssemblySet:class:haploid,1
+    -- this assembly represents a single haploid assembly in its entirety
+    V,130,GC-AssemblySet:class:haploid-with-alt-loci,2
+    -- this assembly has exactly one unit and at least one alt-loci
+    V,133,GC-AssemblySet:class:diploid,3
+    -- assembly represents a diploid assembly; we expect at least two
+    -- haploid-unit assemblies contained herein
+    V,135,GC-AssemblySet:class:unresolved-diploid,4
+    -- unresolved-diploid: single unit which includes the diploid sequences
+    V,138,GC-AssemblySet:class:alternate-haplotype,5
+    -- second part of diploid; linked to another haploid full-assembly
+    -- this one is alt-loci or second full-haploid
+    V,139,GC-AssemblySet:class:alternate-pseudohaplotype,6
+    V,141,GC-AssemblySet:class:annotation-target-set,101
+    -- assembly is a collection for annotation
+    V,143,GC-AssemblySet:class:analysis-set,102
+    -- analysis set used for sequencing by alignments
+    V,145,GC-AssemblySet:class:other,255
+    -- stopper
+  F,149,GC-AssemblySet:desc,/GC-AssemblyDesc
+  -- descriptors live in a shared data block
+  F,152,GC-AssemblySet:primary-assembly,/GC-Assembly
+  -- we contain hierarchically a set of assemblies
+  F,153,GC-AssemblySet:more-assemblies,SET /GC-Assembly,OPTIONAL
+  F,156,GC-AssemblySet:stats,/GC-SequenceStats,OPTIONAL
+  -- statistics
+  -- "stats" field holds stats for all chromosomes combined:
+
+T,161,GC-TaggedSequences,SEQUENCE
+-- GC-TaggedSequences: set of sequences in a specific role
+  F,163,GC-TaggedSequences:state,INTEGER
+    V,164,GC-TaggedSequences:state:not-set,0
+    -- error
+    V,165,GC-TaggedSequences:state:placed,1
+    -- exist only within a replicon. placed sequences
+    -- on higher sequence
+    V,167,GC-TaggedSequences:state:unlocalized,2
+    -- exist only within a replicon. "random" on a
+    -- given chromosome
+    V,169,GC-TaggedSequences:state:unplaced,3
+    -- exist only on primary/diploid assembly-unit.
+    -- unknown chromosome
+    V,171,GC-TaggedSequences:state:aligned,4
+    -- exist only on alt-loci/patch units. List all
+    -- aligned (eg cross-placed) sequences.
+    -- (unaligned are listed as unlocalized).
+    V,174,GC-TaggedSequences:state:bits,6
+    -- exist only on primary/diploid unit. if need to
+    -- report low-level contigs
+  F,177,GC-TaggedSequences:seqs,SET /GC-Sequence
+
+T,180,GC-AssemblyUnit,SEQUENCE
+  F,192,GC-AssemblyUnit:id,SET /Dbtag
+  -- The identifier of this assembly
+  -- Contains: GenColl internal id, GenColl accession.version,
+  --            AGP id, UCSC name, Ensembl name
+  -- Types of DbTags used:
+  -- db "GenColl", tag id <assembly-release-id>
+  -- db "GenColl", tag str <assembly-accession.version>
+  -- db "AGP", tag id <agp-sumbission-id>
+  -- db "GenColl_Chain", tag id <assembly-chain-id>
+  -- "Ensembl_name" and "UCSC_name" will not appear in the Unit level since
+  -- these organizations do not define assembly-units.
+  F,195,GC-AssemblyUnit:class,INTEGER
+  -- 'class' defines the semantics of how to interpret this item
+    V,197,GC-AssemblyUnit:class:haploid-unit,1
+    --  units for haploid/diploid assemblies
+    V,200,GC-AssemblyUnit:class:alt-loci,2
+    -- this unit represents one or more alternate loci for a haploid
+    -- assembly
+    V,202,GC-AssemblyUnit:class:assembly-patch,3
+    -- assembly-patch
+    V,204,GC-AssemblyUnit:class:other,255
+    -- stopper
+  F,208,GC-AssemblyUnit:desc,/GC-AssemblyDesc
+  -- descriptors live in a shared data block
+  F,211,GC-AssemblyUnit:mols,SET /GC-Replicon,OPTIONAL
+  -- collections of molecules for this assembly
+  F,215,GC-AssemblyUnit:other-sequences,SET /GC-TaggedSequences,OPTIONAL
+  -- On primary assembly-unit: here will be the unplaced sequences
+  -- On alt-loci: list of sequences aligned/unaligned to primary unit
+  F,221,GC-AssemblyUnit:stats,/GC-SequenceStats,OPTIONAL
+  -- statistics
+  -- "stats" field holds stats for all chromosomes combined:
+  --     ordered/unordered scaffolds
+  -- "unplaced-stats" holds stats for ChrUn which is omitted from "stats"
+  F,222,GC-AssemblyUnit:unplaced-stats,SET /GC-Scaf-stats,OPTIONAL
+  F,223,GC-AssemblyUnit:unplaced-unlocalized-stats,SET /GC-Scaf-stats,OPTIONAL
+
+T,227,GC-AssemblyDesc,SEQUENCE
+  F,230,GC-AssemblyDesc:projects,SET /GC-Project,OPTIONAL
+  -- project ID for this genome
+  -- this is the ID for this asssembly and may reflect the submitter/source
+  F,233,GC-AssemblyDesc:name,VisibleString,OPTIONAL
+  -- Names of the assembly
+  F,234,GC-AssemblyDesc:submitter-name,VisibleString,OPTIONAL
+  F,235,GC-AssemblyDesc:display-name,VisibleString,OPTIONAL
+  F,236,GC-AssemblyDesc:long-name,UTF8String,OPTIONAL
+  F,237,GC-AssemblyDesc:filesafe-name,VisibleString,OPTIONAL
+  F,238,GC-AssemblyDesc:wgs-acc-prefix,VisibleString,OPTIONAL
+  F,239,GC-AssemblyDesc:wgs-acc-number,INTEGER,OPTIONAL
+  F,242,GC-AssemblyDesc:release-type,INTEGER,OPTIONAL
+  -- release type: RefSeq / GenBank.
+    V,243,GC-AssemblyDesc:release-type:genbank,1
+    V,244,GC-AssemblyDesc:release-type:refseq,2
+  F,248,GC-AssemblyDesc:release-status,INTEGER,OPTIONAL
+  -- release status (numeric values have gaps for possible additional states
+    V,249,GC-AssemblyDesc:release-status:new,0
+    V,250,GC-AssemblyDesc:release-status:gpipe,5
+    V,251,GC-AssemblyDesc:release-status:public,10
+    V,252,GC-AssemblyDesc:release-status:suppressed,15
+    V,253,GC-AssemblyDesc:release-status:hup,100
+    V,254,GC-AssemblyDesc:release-status:withdrawn,105
+  F,259,GC-AssemblyDesc:annot,SET /Seq-annot,OPTIONAL
+  -- in alt-loci units - contain alignment of this sequence to the primary
+  -- unit
+  F,262,GC-AssemblyDesc:synonyms,SET /GC-DbTagAlias,OPTIONAL
+  -- Synonyms: Other releases of same assembly
+  F,265,GC-AssemblyDesc:submitter-date,/Date,OPTIONAL
+  -- Submitter release date
+  F,281,GC-AssemblyDesc:descr,/Seq-descr,OPTIONAL
+  -- Various attributes assigned at this level:
+  -- biosrc, comments, publications...
+  --
+  -- Special user-objects:
+  -- Internal identifiers (GCOL-1178):  type  str ="gencoll-misc"
+  --              data : 2 user fields :
+  --              label  str "asm-name" str <contents of asm_name field>
+  --              label  str "asm-id" int <contents of asm_id field>
+  -- ftp-sites:  type  str ="ftp-sites"
+  --              data : one or 2 fields, depending if both GB and RS have ftp-sites
+  --              label  str : "genbank" or "refseq" str : path to ftp-site
+  -- diffs between GB / RS assemblies: type str "diff-from-synonym",
+  --         data label id <incrementing int> str <description of diff>
+  F,285,GC-AssemblyDesc:partial,BOOLEAN,OPTIONAL
+  -- flag: is this assembly partial?
+  -- **NOTE: not set = not known!!
+  F,289,GC-AssemblyDesc:coverage,REAL,OPTIONAL
+  -- level of coverage for this assembly
+  -- **NOTE: not set = not known!!
+  F,292,GC-AssemblyDesc:release-level,INTEGER,DEFAULT,major
+  -- release level: Most of releases are major
+    V,293,GC-AssemblyDesc:release-level:major,0
+    V,294,GC-AssemblyDesc:release-level:patch,1
+    V,295,GC-AssemblyDesc:release-level:minor,2
+    V,297,GC-AssemblyDesc:release-level:other,255
+    -- stopper
+  F,302,GC-AssemblyDesc:submitter-organization,UTF8String,OPTIONAL
+  -- organization which submitted this assembly.
+  -- populated from BioProject
+
+T,305,GC-Replicon,SEQUENCE
+  F,308,GC-Replicon:name,VisibleString,OPTIONAL
+  -- name for this molecule
+  -- the official name,
+  F,311,GC-Replicon:local-name,VisibleString,OPTIONAL
+  -- If the chromosome has a different name in this assembly.
+  F,316,GC-Replicon:sequence,CHOICE
+  -- the sequence(s) representing this molecule
+  -- in the case of 2L and 2R - the molecule is represented by
+  -- several sequences, and there is no seq-id of "chr 2" as a whole.
+    F,317,GC-Replicon:sequence:single,/GC-Sequence
+    F,318,GC-Replicon:sequence:set,SET /GC-Sequence
+
+T,330,GC-SeqIdAlias,SEQUENCE
+-- Seq-id-alias
+-- a sequence has multiple seq-ids - refseq, genbank, local
+-- and each one has both gi and accession.version
+-- We cannot provide them as simply a list of seq-ids since it will be
+-- unclear which gi goes with which accession, therefore we group the
+-- related ones as alias pair.
+  F,331,GC-SeqIdAlias:public,/Seq-id
+  -- the refseq/genbank accession
+  F,332,GC-SeqIdAlias:gpipe,/Seq-id,OPTIONAL
+  -- the gpipe accession
+  F,333,GC-SeqIdAlias:gi,/Seq-id,OPTIONAL
+  -- optional since not all sequences have GIs
+  -- Similarity: relationship between this synonym to main seqid of the
+  -- GC-Sequence
+  -- Can be expanded to multiple level of identicality
+  -- can use bitmap to flag ambiguity between different levels
+  F,338,GC-SeqIdAlias:similarity,INTEGER
+    V,339,GC-SeqIdAlias:similarity:unknown,0
+    V,340,GC-SeqIdAlias:similarity:identical,1
+    V,341,GC-SeqIdAlias:similarity:different,255
+
+T,345,GC-External-Seqid,SEQUENCE
+  F,346,GC-External-Seqid:external,VisibleString
+  F,347,GC-External-Seqid:id,/Seq-id
+
+T,350,GC-TypedSeqId,CHOICE
+  F,351,GC-TypedSeqId:genbank,/GC-SeqIdAlias
+  F,352,GC-TypedSeqId:refseq,/GC-SeqIdAlias
+  F,353,GC-TypedSeqId:private,/Seq-id
+  F,354,GC-TypedSeqId:external,/GC-External-Seqid
+
+T,361,GC-SequenceRole,INTEGER
+-- sequence-role: what role(s) does this sequence have in the assembly
+-- a sequence may have more than one role. e.g. a complete-sequence is all 4 roles
+-- pseudo-scaffold - this is for UCSC chr1_random etc
+-- submitter-pseudo-scaffold - this is for FlyBase pseudo scaffolds.
+  V,362,GC-SequenceRole:chromosome,2
+  V,363,GC-SequenceRole:scaffold,3
+  V,364,GC-SequenceRole:component,4
+  V,365,GC-SequenceRole:top-level,10
+  V,366,GC-SequenceRole:pseudo-scaffold,20
+  V,367,GC-SequenceRole:submitter-pseudo-scaffold,21
+
+T,380,GC-Sequence,SEQUENCE
+-- GC-Sequence:
+-- Used for scaffolds, scaffold-sets and components in Gencoll terminology.
+-- Theoretically can support sequences decsribed with more levels than
+-- Chromosome / scaffold-set/scaffold/component.
+-- The meaning of the GC-Sequence record - if it is component, scaffold or
+-- or scaffold-set, is defined by its context.
+-- ??? DO WE NEED A FIELD TO SPECIFY WHAT LEVEL IT IS???
+--
+-- GC-Sequences are made of GC-Sequences: At the lowest level there is only one
+-- seq-id of a component with no further structure.
+  F,387,GC-Sequence:seq-id,/Seq-id
+  -- identifiers are: Local / gpipe-satellite / genbank / refseq
+  -- local is merely local name (or maybe with WGS accession??)
+  -- others are accession/ver/gi
+  --
+  -- Main identifier:
+  -- we will report the one that matches the context of who asked.
+  F,389,GC-Sequence:seq-id-synonyms,SET /GC-TypedSeqId,OPTIONAL
+  -- Other known identifiers: Local / gpipe-satellite / genbank / refseq
+  F,393,GC-Sequence:descr,/Seq-descr,OPTIONAL
+  -- Various attributes assigned at this level:
+  -- biosrc, comments, publications...
+  F,413,GC-Sequence:annot,SET /Seq-annot,OPTIONAL
+  -- Feature annotation;
+  -- Contains Pseudo Autosomal regions on chromosomes and scaffolds in the
+  -- following format:
+  --   Id = <ID of PAR (ex:"PAR#1")>
+  --   Desc (set of Annot-descr)
+  --      Name: "pseudo autosomal region"
+  --       Region (seq-loc): int (seq-interval)
+  --          Id:  <GI of chromosome>
+  --            From: <start-position of region>
+  --            To : <end-position of region>
+  --      Data: locs (set of seq-loc):
+  --         List of int (seq-interval):
+  --            Id: GI of scaffold
+  --              From/to: position on scaffold that belongs to this PAR region.
+  --                  <and repeat this for additional scaffolds on same PAR region>
+  --
+  -- in alt-loci units - contain alignment of this sequence to the primary
+  -- unit
+  F,417,GC-Sequence:sequences,SET /GC-TaggedSequences,OPTIONAL
+  -- placed: populated both on chromosome and scaffold levels
+  -- unlocalized: populated on chromosome level
+  F,420,GC-Sequence:structure,/Delta-ext,OPTIONAL
+  -- locations of ordered scaffolds/components
+  F,423,GC-Sequence:stats,/GC-SequenceStats,OPTIONAL
+  -- statistics
+  F,425,GC-Sequence:patch-type,INTEGER,OPTIONAL
+    V,426,GC-Sequence:patch-type:novel,0
+    V,427,GC-Sequence:patch-type:fix,1
+    V,429,GC-Sequence:patch-type:other,255
+    -- stopper
+  F,433,GC-Sequence:roles,SET /GC-SequenceRole,OPTIONAL
+  -- sequence-role: what role(s) does this sequence have in the assembly
+
+T,439,GC-SequenceStats,SEQUENCE
+-- Stats of complex objects
+-- Used at assembly and chromosome levels
+  F,440,GC-SequenceStats:all-scaf,SET /GC-Scaf-stats
+  F,441,GC-SequenceStats:ordered-scaf,SET /GC-Scaf-stats
+  F,442,GC-SequenceStats:unordered-scaf,SET /GC-Scaf-stats
+  --
+  F,443,GC-SequenceStats:unplaced-scaf,SET /GC-Scaf-stats,OPTIONAL
+  -- unplaced at full assembly level
+  F,444,GC-SequenceStats:aligned-scaf,SET /GC-Scaf-stats,OPTIONAL
+  -- aligned at full assembly level
+  F,445,GC-SequenceStats:unaligned-scaf,SET /GC-Scaf-stats,OPTIONAL
+  -- unaligned at full assembly level
+
+T,448,GC-Scaf-stats,SEQUENCE
+  F,450,GC-Scaf-stats:stats-category,INTEGER
+  --NOTE: These values equal to the stats_cd values in CodeStatistics table in GenomeColl
+    V,451,GC-Scaf-stats:stats-category:replicon-count,70
+    V,452,GC-Scaf-stats:stats-category:scaffold-count,22
+    V,453,GC-Scaf-stats:stats-category:component-count,23
+    -- How many components
+    V,454,GC-Scaf-stats:stats-category:component-span-count,24
+    -- How many placements of components
+    V,455,GC-Scaf-stats:stats-category:total-length,1
+    V,456,GC-Scaf-stats:stats-category:ungapped-length,2
+    V,457,GC-Scaf-stats:stats-category:min-gapped-scaf-length,25
+    V,458,GC-Scaf-stats:stats-category:max-gapped-scaf-length,26
+    V,459,GC-Scaf-stats:stats-category:min-ungapped-scaf-length,27
+    V,460,GC-Scaf-stats:stats-category:max-ungapped-scaf-length,28
+    V,461,GC-Scaf-stats:stats-category:active-finishing-bases,3
+    V,462,GC-Scaf-stats:stats-category:draft-bases,5
+    V,463,GC-Scaf-stats:stats-category:finished-bases,7
+    V,464,GC-Scaf-stats:stats-category:whole-genome-finishing-bases,9
+    V,465,GC-Scaf-stats:stats-category:other-sequences,11
+    V,466,GC-Scaf-stats:stats-category:pre-draft,13
+    V,467,GC-Scaf-stats:stats-category:wgs-bases,15
+    V,468,GC-Scaf-stats:stats-category:bases-in-spanned-gaps,17
+    V,469,GC-Scaf-stats:stats-category:n50,19
+    V,470,GC-Scaf-stats:stats-category:spanned-gaps,20
+    V,471,GC-Scaf-stats:stats-category:unspanned-gaps,21
+    V,472,GC-Scaf-stats:stats-category:bases-in-unspanned-gaps,29
+    V,473,GC-Scaf-stats:stats-category:count-contig,30
+    -- contig count
+    V,474,GC-Scaf-stats:stats-category:contig-n50,31
+    -- contig N50
+    V,475,GC-Scaf-stats:stats-category:contig-L50,32
+    -- contig L50
+    V,476,GC-Scaf-stats:stats-category:contig-n75,33
+    -- contig N75
+    V,477,GC-Scaf-stats:stats-category:contig-n90,34
+    -- contig N90
+    V,478,GC-Scaf-stats:stats-category:scaf-L50,35
+    -- scaffold L50
+    V,479,GC-Scaf-stats:stats-category:scaf-n75,36
+    -- scaffold N75
+    V,480,GC-Scaf-stats:stats-category:scaf-n90,37
+    -- scaffold N90
+    V,481,GC-Scaf-stats:stats-category:is-there-unplaced-scaf,72
+    -- 1 means there is unplaced scaffold. 0 means none
+    V,482,GC-Scaf-stats:stats-category:count-singleton-unordered-scaffold,73
+    V,483,GC-Scaf-stats:stats-category:count-chr-made-of-singleton-ordered-scaffold,74
+    V,488,GC-Scaf-stats:stats-category:count-chr-with-single-component,75
+    -- GCOL-675 - assembly release review stats. Meaningful only at assembly
+    -- level.
+    -- Do any of the chromosomes have a single component each?
+    --   if yes, do all chromosomes have single component each?
+    -- INTEGER OPTIONAL,
+    -- number of unplaced/unlocalized singleton scaffolds in minus orientation
+    V,490,GC-Scaf-stats:stats-category:count-singleton-in-minus-orientation,76
+    -- INTEGER OPTIONAL,
+    --chr-terminal-gap-types SET OF GC-ChrGapTypes OPTIONAL,
+    -- are any gaps flagged as 'unknown' and how many? 0 means none.
+    V,493,GC-Scaf-stats:stats-category:count-unknown-gaps,80
+    --  INTEGER OPTIONAL,
+    -- 1.2c Scaffold source names: count implicit/explicit
+    V,495,GC-Scaf-stats:stats-category:count-implicit-scaf-src-name,82
+    -- INTEGER OPTIONAL,
+    V,496,GC-Scaf-stats:stats-category:count-explicit-scaf-src-name,83
+    -- INTEGER OPTIONAL
+    V,497,GC-Scaf-stats:stats-category:all-chr-has-single-component,84
+    -- if 1 yes, 0 no. BOOLEAN OPTIONAL,
+    -- Do any scaffolds have terminal gaps? How many?
+    V,499,GC-Scaf-stats:stats-category:count-scaf-with-terminal-gaps,85
+    -- INTEGER OPTIONAL,
+    -- Do any chromosome have terminal gaps? what is the gap type for each?
+    V,501,GC-Scaf-stats:stats-category:count-chr-with-terminal-gaps,86
+    -- INTEGER OPTIONAL,
+    -- Number of component GIs (uniq components). Is the count different from the count in the
+    -- latest GenBank/Refseq release for the same assembly, by how many?
+    V,504,GC-Scaf-stats:stats-category:count-uniq-components,87
+    --INTEGER OPTIONAL ,
+    V,505,GC-Scaf-stats:stats-category:count-uniq-component-diff-from-last-release,88
+    --INTEGER OPTIONAL,
+    V,506,GC-Scaf-stats:stats-category:count-chromosome-types,89
+    --INTEGER OPTIONAL,
+    V,507,GC-Scaf-stats:stats-category:count-chromosome-terminal-gap-types,90
+    -- # of chromosome terminal gap types
+    V,508,GC-Scaf-stats:stats-category:count-dropped-components,91
+    -- dropped component due to foreign screen
+    V,509,GC-Scaf-stats:stats-category:count-non-chromosome-replicon,92
+    -- number of non-Chromosome replicons
+    V,510,GC-Scaf-stats:stats-category:count-assembly-units,93
+    -- # of assembly-units
+    V,511,GC-Scaf-stats:stats-category:count-alt-loci-units,94
+    -- # of alt-loci units
+    V,512,GC-Scaf-stats:stats-category:count-fixed-patches,95
+    -- # of fixed patches
+    V,513,GC-Scaf-stats:stats-category:count-novel-patches,96
+    -- # of novel patches
+    V,514,GC-Scaf-stats:stats-category:count-regions,97
+    -- # of regions
+    V,515,GC-Scaf-stats:stats-category:count-patches,98
+    -- # of patches
+    V,516,GC-Scaf-stats:stats-category:count-par-regions,99
+    -- # of PAR regions
+    V,517,GC-Scaf-stats:stats-category:count-genomic-regions,100
+    -- # of genomic regions
+    V,518,GC-Scaf-stats:stats-category:count-chromosome-replicons,101
+    -- # of chromosomal replicons
+    V,519,GC-Scaf-stats:stats-category:assembly-status,102
+    -- Assembly status 1 - Contig only;2 - Unplaced scaffolds only; 3 - Some chromosomes assembled;
+    -- 4 - all chromosomes assembled; 5 - complete sequence genome; 6-unlocalized and unplaced scaffolds.
+    V,521,GC-Scaf-stats:stats-category:net-count-scaffold,103
+    -- number of scaffolds that are not also chromosomes (22 - 75)
+    V,522,GC-Scaf-stats:stats-category:net-count-component,104
+    -- number of components that are not also chromosomes or scaffolds (30 - 75 -73)
+    V,523,GC-Scaf-stats:stats-category:count-regions-contain-alt-loci,105
+    -- number of regions containing alt-loci
+    V,524,GC-Scaf-stats:stats-category:count-regions-contain-fix-patch,106
+    -- number of regions containing fix patch
+    V,525,GC-Scaf-stats:stats-category:count-regions-contain-novel-patch,107
+    -- number of regions containing novel patch
+    V,526,GC-Scaf-stats:stats-category:count-fix-patch-with-alignment,108
+    -- number of fix patch with alignment to primary assembly
+    V,527,GC-Scaf-stats:stats-category:count-novel-patch-with-alignment,109
+    -- number of novel patch with alignment to primary assembly
+    V,528,GC-Scaf-stats:stats-category:count-alt-scaf-with-alignment,110
+    -- number of alt scaffolds with alignment to primary assembly
+    V,529,GC-Scaf-stats:stats-category:count-alt-loci-scaf,111
+    -- number of alt-loci scaffolds.
+    V,530,GC-Scaf-stats:stats-category:count-real-scaffolds,112
+    -- number of scaffolds with gb_is_skipped = 0.
+    V,531,GC-Scaf-stats:stats-category:top-level-count,113
+    -- Number of chromosomes or plasmids, unplaced/unlocalized scaffolds, alt-loci scaffolds, and patch scaffolds
+    V,532,GC-Scaf-stats:stats-category:total-gap-length,114
+    -- Total length of gaps
+    V,533,GC-Scaf-stats:stats-category:count-replicons-without-ordered-scaf,115
+    -- count of replicons without ordered scaffold
+    V,535,GC-Scaf-stats:stats-category:other,255
+    -- catch all
+  F,537,GC-Scaf-stats:value,INTEGER

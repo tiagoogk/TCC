@@ -1,0 +1,9 @@
+/usr/bin/make -w -f /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/build-system/Makefile.module MODULE=search_by_rsid MODULE_PATH=objects/variation_libs/dbsnp/search_by_rsid MODULE_ASN=search_by_rsid.asn MODULE_IMPORT='objects/trackmgr/trackmgr objects/general/general' IMPDEPS='/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/trackmgr/trackmgr.asn /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/general/general.asn' IMPFILES='objects/trackmgr/trackmgr.asn objects/general/general.asn' top_srcdir=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++ builddir=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build DATATOOL=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/bin/datatool DATATOOL_WRAPPER='' MODULE_SEARCH=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src all
+make[5]: Entering directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/variation_libs/dbsnp/search_by_rsid'
+/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/bin/datatool -oR /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++ \
+    -opm /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src -m search_by_rsid.asn -M "objects/trackmgr/trackmgr.asn objects/general/general.asn" -oA \
+    -oc search_by_rsid -or objects/variation_libs/dbsnp/search_by_rsid -odi -od search_by_rsid.def -oex '' \
+    -ocvs -pch 'ncbi_pch.hpp' -fd search_by_rsid.dump \
+    
+datatool: 2.20.1
+make[5]: Leaving directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/variation_libs/dbsnp/search_by_rsid'

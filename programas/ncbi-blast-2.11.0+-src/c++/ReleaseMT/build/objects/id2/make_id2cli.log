@@ -1,0 +1,11 @@
+make[4]: Entering directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/objects/id2'
+Updating dependency information for /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/id2/id2_client_.cpp.
+Updating dependency information for /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/id2/id2_client.cpp.
+/usr/bin/g++  -std=gnu++14 -msse4.2 -c  -Wall -Wno-format-y2k  -pthread -fopenmp -O2 -fPIC   -DNDEBUG -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE   -D_MT -D_REENTRANT -D_THREAD_SAFE -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/inc -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/include  -DNCBI_BUILD_SESSION_ID=1d281178-5679-4c82-9e29-bc46604df53a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/id2/id2_client.cpp -o id2_client.o 
+/usr/bin/g++  -std=gnu++14 -msse4.2 -c  -Wall -Wno-format-y2k  -pthread -fopenmp -O2 -fPIC   -DNDEBUG -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE   -D_MT -D_REENTRANT -D_THREAD_SAFE -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/inc -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/include  -DNCBI_BUILD_SESSION_ID=1d281178-5679-4c82-9e29-bc46604df53a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/id2/id2_client_.cpp -o id2_client_.o 
+/bin/rm -f libid2cli.a .libid2cli.a.stamp
+ar cr libid2cli.a id2_client.o id2_client_.o  
+/bin/bash /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/scripts/common/impl/if_diff.sh /bin/ln -f libid2cli.a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/lib
+/bin/ln -f libid2cli.a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/lib/libid2cli.a
+/bin/ln -f .id2cli.dep /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/status/.id2cli.dep
+make[4]: Leaving directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/objects/id2'

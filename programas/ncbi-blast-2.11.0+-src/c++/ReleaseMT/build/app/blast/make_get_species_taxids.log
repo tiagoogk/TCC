@@ -1,0 +1,4 @@
+make[5]: Entering directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/app/blast'
+/bin/bash /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/scripts/common/impl/if_diff.sh /bin/ln -f /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/app/blast/get_species_taxids.sh /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/bin
+/bin/ln -f /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/app/blast/get_species_taxids.sh /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/bin/get_species_taxids.sh
+make[5]: Leaving directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/app/blast'

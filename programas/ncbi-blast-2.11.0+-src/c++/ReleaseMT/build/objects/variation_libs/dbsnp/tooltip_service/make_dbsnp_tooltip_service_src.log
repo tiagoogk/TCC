@@ -1,0 +1,9 @@
+/usr/bin/make -w -f /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/build-system/Makefile.module MODULE=dbsnp_tooltip_service MODULE_PATH=objects/variation_libs/dbsnp/tooltip_service MODULE_ASN=dbsnp_tooltip_service.asn MODULE_IMPORT='' IMPDEPS='' IMPFILES='' top_srcdir=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++ builddir=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build DATATOOL=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/bin/datatool DATATOOL_WRAPPER='' MODULE_SEARCH=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src all
+make[5]: Entering directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/variation_libs/dbsnp/tooltip_service'
+/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/bin/datatool -oR /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++ \
+    -opm /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src -m dbsnp_tooltip_service.asn -M "" -oA \
+    -oc dbsnp_tooltip_service -or objects/variation_libs/dbsnp/tooltip_service -odi -od dbsnp_tooltip_service.def -oex '' \
+    -ocvs -pch 'ncbi_pch.hpp' -fd dbsnp_tooltip_service.dump \
+    
+datatool: 2.20.1
+make[5]: Leaving directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/variation_libs/dbsnp/tooltip_service'

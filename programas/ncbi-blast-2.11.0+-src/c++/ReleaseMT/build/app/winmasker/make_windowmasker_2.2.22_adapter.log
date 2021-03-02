@@ -1,0 +1,4 @@
+make[4]: Entering directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/app/winmasker'
+/bin/bash /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/scripts/common/impl/if_diff.sh /bin/ln -f /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/app/winmasker/windowmasker_2.2.22_adapter.py /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/bin
+/bin/ln -f /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/app/winmasker/windowmasker_2.2.22_adapter.py /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/bin/windowmasker_2.2.22_adapter.py
+make[4]: Leaving directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/app/winmasker'

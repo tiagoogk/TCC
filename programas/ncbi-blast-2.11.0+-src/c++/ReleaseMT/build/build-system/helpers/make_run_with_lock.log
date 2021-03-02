@@ -1,0 +1,8 @@
+make[1]: Entering directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/build-system/helpers'
+Updating dependency information for /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/build-system/helpers/run_with_lock.c.
+gcc -c  -g -O2   -DNCBI_APP_BUILT_AS=run_with_lock -DNCBI_BUILD_SESSION_ID=4c7ed9e1-d072-44d6-9adb-972fd5daf370 /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/build-system/helpers/run_with_lock.c -o run_with_lock.o 
+gcc -Wl,-rpath,/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/lib run_with_lock.o -L/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/lib -lm -lpthread -o run_with_lock
+strip run_with_lock
+/bin/bash /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/scripts/common/impl/if_diff.sh /bin/ln -f run_with_lock /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/bin
+/bin/ln -f run_with_lock /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/bin/run_with_lock
+make[1]: Leaving directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/build-system/helpers'

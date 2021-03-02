@@ -1,0 +1,13 @@
+make[3]: Entering directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/objects/seqset'
+Updating dependency information for /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/seqset/gb_release_file.cpp.
+Updating dependency information for /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/seqset/seqset___.cpp.
+Updating dependency information for /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/seqset/seqset__.cpp.
+/usr/bin/g++  -std=gnu++14 -msse4.2 -c  -Wall -Wno-format-y2k  -pthread -fopenmp -O2 -fPIC   -DNDEBUG -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE   -D_MT -D_REENTRANT -D_THREAD_SAFE -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/inc -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/include  -DNCBI_BUILD_SESSION_ID=1d281178-5679-4c82-9e29-bc46604df53a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/seqset/seqset__.cpp -o seqset__.o 
+/usr/bin/g++  -std=gnu++14 -msse4.2 -c  -Wall -Wno-format-y2k  -pthread -fopenmp -O2 -fPIC   -DNDEBUG -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE   -D_MT -D_REENTRANT -D_THREAD_SAFE -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/inc -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/include  -DNCBI_BUILD_SESSION_ID=1d281178-5679-4c82-9e29-bc46604df53a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/seqset/seqset___.cpp -o seqset___.o 
+/usr/bin/g++  -std=gnu++14 -msse4.2 -c  -Wall -Wno-format-y2k  -pthread -fopenmp -O2 -fPIC   -DNDEBUG -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE   -D_MT -D_REENTRANT -D_THREAD_SAFE -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/inc -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/include  -DNCBI_BUILD_SESSION_ID=1d281178-5679-4c82-9e29-bc46604df53a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/seqset/gb_release_file.cpp -o gb_release_file.o 
+/bin/rm -f libseqset.a .libseqset.a.stamp
+ar cr libseqset.a seqset__.o seqset___.o gb_release_file.o  
+/bin/bash /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/scripts/common/impl/if_diff.sh /bin/ln -f libseqset.a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/lib
+/bin/ln -f libseqset.a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/lib/libseqset.a
+/bin/ln -f .seqset.dep /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/status/.seqset.dep
+make[3]: Leaving directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/objects/seqset'

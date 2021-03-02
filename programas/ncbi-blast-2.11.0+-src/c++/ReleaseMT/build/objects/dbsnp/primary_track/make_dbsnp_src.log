@@ -1,0 +1,7 @@
+File dbsnp.module not found. Using defaults...
+/usr/bin/make -w -f /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/Makefile.protobuf MODULE=dbsnp MODULE_PATH=objects/dbsnp/primary_track MODULE_ASN=dbsnp.proto MODULE_IMPORT='' IMPDEPS='' IMPFILES='' top_srcdir=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++ builddir=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build DATATOOL=/no/need/for/datatool DATATOOL_WRAPPER='' MODULE_SEARCH=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src all
+make[4]: Entering directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/dbsnp/primary_track'
+grep: /grpc_cpp_plugin: Arquivo ou diretório inexistente
+Warning: Skipping code generation for dbsnp.proto
+because protoc is unavailable here.
+make[4]: Leaving directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/dbsnp/primary_track'

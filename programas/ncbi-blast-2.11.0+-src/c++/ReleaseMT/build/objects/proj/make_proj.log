@@ -1,0 +1,11 @@
+make[3]: Entering directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/objects/proj'
+Updating dependency information for /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/proj/proj___.cpp.
+Updating dependency information for /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/proj/proj__.cpp.
+/usr/bin/g++  -std=gnu++14 -msse4.2 -c  -Wall -Wno-format-y2k  -pthread -fopenmp -O2 -fPIC   -DNDEBUG -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE   -D_MT -D_REENTRANT -D_THREAD_SAFE -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/inc -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/include  -DNCBI_BUILD_SESSION_ID=1d281178-5679-4c82-9e29-bc46604df53a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/proj/proj__.cpp -o proj__.o 
+/usr/bin/g++  -std=gnu++14 -msse4.2 -c  -Wall -Wno-format-y2k  -pthread -fopenmp -O2 -fPIC   -DNDEBUG -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE   -D_MT -D_REENTRANT -D_THREAD_SAFE -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/inc -I/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/include  -DNCBI_BUILD_SESSION_ID=1d281178-5679-4c82-9e29-bc46604df53a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/proj/proj___.cpp -o proj___.o 
+/bin/rm -f libproj.a .libproj.a.stamp
+ar cr libproj.a proj__.o proj___.o  
+/bin/bash /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/scripts/common/impl/if_diff.sh /bin/ln -f libproj.a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/lib
+/bin/ln -f libproj.a /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/lib/libproj.a
+/bin/ln -f .proj.dep /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/status/.proj.dep
+make[3]: Leaving directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build/objects/proj'

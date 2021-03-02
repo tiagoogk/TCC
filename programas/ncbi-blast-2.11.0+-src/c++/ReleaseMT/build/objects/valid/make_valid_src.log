@@ -1,0 +1,4 @@
+/usr/bin/make -w -f /home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/build-system/Makefile.module MODULE=valid MODULE_PATH=objects/valid MODULE_ASN=valid.asn MODULE_IMPORT='' IMPDEPS='' IMPFILES='' top_srcdir=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++ builddir=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/build DATATOOL=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/ReleaseMT/bin/datatool DATATOOL_WRAPPER='' MODULE_SEARCH=/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src all
+make[3]: Entering directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/valid'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/tiagotcc/tcc/programas/ncbi-blast-2.11.0+-src/c++/src/objects/valid'
