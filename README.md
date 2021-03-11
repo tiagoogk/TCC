@@ -1,6 +1,6 @@
 # Pipeline para Caracterização Funcional de Proteínas Hipotéticas
 
-Projeto desenvolvido para o Trabalho de Conclusão de Curso em Informática Biomédica.
+Projeto desenvolvido para o Trabalho de Conclusão de Curso em Informática Biomédica. O pipeline faz parte do grupo [Enteromar](https://github.com/enteromar) e futuramente todas as versões serão atualizados por lá.
 
 ## Instalação
 São necessárias 3 bibliotecas para rodar a pipeline [Pandas](https://pandas.pydata.org/), [Biopython](https://biopython.org/) e [Numpy](https://biopython.org/).
@@ -21,3 +21,4 @@ E no editor:
 BLASTDB=<caminho da pasta com os dbs>
 ```
 Observação: caso seja necessário, baixe o arquivo fasta com o banco e crie um banco com o mesmo nome swissprot e cddmaster.fa
+
