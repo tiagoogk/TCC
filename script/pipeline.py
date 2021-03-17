@@ -27,13 +27,12 @@ for sequence in fastaFiles:
 	command_line = ['blastp','-query', '../../fasta/'+sequence,'-out', sequence + '_out_sp', '-outfmt', '6','-db','swissprot']
 	subprocess.call(command_line)
 
-
 for sequenceCdd in fastaFiles:
 	command_line = ['blastp','-query', '../../fasta/'+sequenceCdd,'-out', sequenceCdd + '_out_cdd', '-outfmt', '6','-db','cddmasters.fa']
 	subprocess.call(command_line)
 
 for sequenceSignalP in fastaFiles:
-	command_line = ['signalp', '-fasta', '../../fasta/'+sequenceSignalP, '-org gram+', '-prefix', sequenceSignalP + '_signal']
+	command_line = ['signalp', '-fasta', '../../fasta/'+sequenceSignalP, '-prefix', 'signalp_'+sequenceSignalP, '-org', "gram+"]
 	subprocess.call(command_line)
 
 for result in fastaFiles:
@@ -61,13 +60,14 @@ for result in fastaFiles:
 			print("%0.2f" % x.gravy())
 			print(sequenceAA)
 			out.write("%0.2f" % x.isoelectric_point() + '\t' + "%0.2f" % x.instability_index() + '\t' + "%0.2f" % x.molecular_weight() + '\t' + "%0.2f" % x.gravy() + '\t')
-	third_line = open(result+'_signal').readlines()
-	column3 = third_line[3].slipt()
-	out.write(column3[1] + column3[2] + column[3] + '\n')
+	third_line = open('signalp_'+result+'_summary.signalp5').readlines()[2]
+	column3 = third_line.split()
+	print(column3)
+	out.write(column3[1] + '\t' + column3[2] + '\t' + column3[3] + '\t' + column3[4] + '\t' + column3[5]  + '\n')
 	
 
-
 out.close()
+
 data = pd.read_csv('best_scores.txt',delimiter = "\t")
-data.columns=["ID", "Subject accension", "Identity(%)", "Alignment length", "Mismatches", "Gaps", "q. start", "q. end", "s. start", "s. end", "e-value", "Bit score", "Subject accension", "Identity(%)", "Alignment length", "Mismatches", "Gaps", "q. start", "q. end", "s. start", "s. end", "e-value", "Bit score", "pI", "Instability Index", "Molecular weight", "Gravy"]
-data.to_csv('dataframe.csv', index = False, header = True)
+data.columns=["ID", "Subject accension", "Identity(%)", "Alignment length", "Mismatches", "Gaps", "q. start", "q. end", "s. start", "s. end", "e-value", "Bit score", "Subject accension", "Identity(%)", "Alignment length", "Mismatches", "Gaps", "q. start", "q. end", "s. start", "s. end", "e-value", "Bit score", "pI", "Instability Index", "Molecular weight", "Gravy", "Prediction", "SP(Sec/SPI)", "TAT(Tat/SPI)",	"LIPO(Sec/SPII)", "OTHER"]
+data.to_csv('dataframe.csv', mode='w', index = False, header = True)
